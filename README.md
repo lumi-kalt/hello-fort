@@ -10,7 +10,10 @@ Requires [xmake](https://xmake.io) and [Fortran](https://www.fortran.org/).
 
 ```bash
 cd hello
-xmake && ./build/linux/hello
+xmake
+
+#run with
+./build/linux/hello
 # or
 xmake run
 ```

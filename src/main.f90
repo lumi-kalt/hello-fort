@@ -2,23 +2,22 @@ program hello
   use, intrinsic :: iso_c_binding
   implicit none
 
-  integer :: a
+  real :: a
+  real, dimension(3) :: b = [1,2,3]
 
-  call sum(a)
+  a = vector_norm(3, b)
 
   print *, a
 
 contains
-  ! Calculate the sum of the first n integers
-  subroutine sum(n)
-    use iso_c_binding
-    implicit none
-    integer, intent(out) :: n
-    integer :: i
-    n = 0
-    do concurrent (i = 1:10)
-      n = n + i
-    end do
-  end subroutine sum
+
+function vector_norm(n,vec) result(norm)
+  implicit none
+  integer, intent(in) :: n
+  real, intent(in) :: vec(n)
+  real :: norm
+
+  norm = sqrt(sum(vec**2))
+end function vector_norm
 
 end program hello

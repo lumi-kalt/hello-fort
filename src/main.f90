@@ -1,15 +1,24 @@
 program hello
-  use, intrinsic :: iso_fortran_env, only: sp=>real32, dp=>real64
+  use, intrinsic :: iso_c_binding
   implicit none
 
-  integer :: i
-  integer, parameter :: n = 10
-  real(dp) :: x
-  real(dp) :: pi = 3.141592653589793_dp
+  integer :: a
 
-  do concurrent (i = 1 : n)
-      x = i
-      print *, sin(x / 2. * pi)
-  end do
+  call sum(a)
+
+  print *, a
+
+contains
+  ! Calculate the sum of the first n integers
+  subroutine sum(n)
+    use iso_c_binding
+    implicit none
+    integer, intent(out) :: n
+    integer :: i
+    n = 0
+    do concurrent (i = 1:10)
+      n = n + i
+    end do
+  end subroutine sum
 
 end program hello
